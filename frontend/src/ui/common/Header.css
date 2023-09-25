@@ -1,0 +1,13 @@
+header {
+    margin: 0;
+    display: flex;
+    padding-left: 1rem;
+    background-color: #29abe2;
+    color: white;
+}
+
+h1 {
+    margin: 0;
+    padding: 1rem;
+    cursor: default;
+}

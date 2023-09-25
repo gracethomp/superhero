@@ -4,7 +4,7 @@
     "description": "",
     "scripts": {
         "init:backend": "cd backend && npm install",
-        "link-shared:frontend": "cd frontend && npm link shared",
+        "init:frontend": "cd frontend && npm install",
         "init": "npm install && npm-run-all -p init:*",
         "seed:dev": "docker compose --env-file=.env.dev exec backend npx sequelize-cli db:seed:all --config src/config/config.mjs --seeders-path ./seeders --debug",
         "start": "docker compose --env-file=.env.dev up -d",
