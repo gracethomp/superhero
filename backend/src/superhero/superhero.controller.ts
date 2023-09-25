@@ -9,8 +9,7 @@ import {
   Post,
 } from '@nestjs/common';
 import { SuperheroService } from './superhero.service';
-import { CreateSuperheroDto } from './dto/create-superhero.dto';
-import { UpdateSuperheroDto } from './dto/update-superhero.dto'; //add index.ts
+import { CreateSuperheroDto, UpdateSuperheroDto } from './dto';
 
 @Controller('superhero')
 export class SuperheroController {

@@ -1,8 +1,7 @@
 import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { Superhero } from './entities';
-import { CreateSuperheroDto } from './dto/create-superhero.dto';
-import { UpdateSuperheroDto } from './dto/update-superhero.dto';
+import { CreateSuperheroDto, UpdateSuperheroDto } from './dto';
 
 @Injectable()
 export class SuperheroService {
