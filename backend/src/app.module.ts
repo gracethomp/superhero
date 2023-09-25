@@ -1,10 +1,12 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { SuperheroModule } from './superhero/superhero.module';
+import { SequelizeModule } from '@nestjs/sequelize';
+import { sequelizeDevelopmentConfig } from './config';
 
 @Module({
-  imports: [],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [
+    SequelizeModule.forRoot(sequelizeDevelopmentConfig),
+    SuperheroModule,
+  ],
 })
 export class AppModule {}
