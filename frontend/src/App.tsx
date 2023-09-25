@@ -1,6 +1,7 @@
 import React from "react";
-import Header from "./ui/common/Header";
+
 import SuperheroCard from "./ui/cards/SuperheroCard";
+import Header from "./ui/common/header/Header";
 
 function App() {
   return (
