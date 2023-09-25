@@ -6,7 +6,7 @@ import { Superhero } from './entities';
 
 @Module({
   imports: [SequelizeModule.forFeature([Superhero])],
-  providers: [SuperheroService],
   controllers: [SuperheroController],
+  providers: [SuperheroService],
 })
-export class UsersModule {}
+export class SuperheroModule {}

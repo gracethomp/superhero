@@ -1,14 +1,14 @@
-import { IsNotEmpty, IsString, Max } from 'class-validator';
+import { IsNotEmpty, IsString, MaxLength } from 'class-validator';
 
 export class CreateSuperheroDto {
   @IsNotEmpty()
   @IsString()
-  @Max(255)
+  @MaxLength(255)
   public nickname: string;
 
   @IsNotEmpty()
   @IsString()
-  @Max(255)
+  @MaxLength(255)
   public real_name: string;
 
   @IsNotEmpty()
@@ -21,6 +21,6 @@ export class CreateSuperheroDto {
 
   @IsNotEmpty()
   @IsString()
-  @Max(255)
+  @MaxLength(255)
   public catch_phrase: string;
 }
