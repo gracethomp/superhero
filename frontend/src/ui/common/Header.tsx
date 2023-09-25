@@ -6,6 +6,7 @@ const Header = () => {
     <header>
       <img src={icons.logo} alt="logo" />
       <h1>Superheroes</h1>
+      
     </header>
   );
 };
