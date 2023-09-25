@@ -1,6 +1,8 @@
 button {
-    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;;
+    transition: background-color 0.3s ease-in-out;
     padding: 1rem;
+    display: flex;
+    align-items: center;
     border: none;
     border-radius: 1rem;
     background-color: white;
@@ -12,5 +14,8 @@ button {
 
 button:hover {
     background-color: #d3d3d3;
-    color: #155570;
+}
+
+.button-icon {
+    margin-right: 1rem;
 }

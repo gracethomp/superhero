@@ -10,5 +10,7 @@ body {
 
 .cards {
   display: flex;
+  margin-top: 2rem;
   overflow: auto;
+  justify-content: space-around;
 }

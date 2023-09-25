@@ -1,14 +1,19 @@
-import { FC, PropsWithChildren } from "react";
-import { icons } from "../../../icons/icons";
-import './Button.css';
+import { FC } from "react";
+import "./Button.css";
 
 type ButtonProps = {
-    children: string;
-    variant: 'primary' | 'secondary';
+  children: string;
+  variant: "primary" | "secondary";
+  icon?: string;
 };
 
 const Button: FC<ButtonProps> = (props) => {
-  return <button className={props.variant}>{props.children}</button>;
+  return (
+    <button className={props.variant}>
+      {props.icon ? <img src={props.icon} alt="button icon" className="button-icon"/> : <></>}
+      {props.children}
+    </button>
+  );
 };
 
 export default Button;
