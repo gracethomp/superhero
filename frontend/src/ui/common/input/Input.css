@@ -1,6 +1,6 @@
 input {
     padding: 1rem;
-    border: none;
+    border: 0.05rem solid #bababa;
     border-radius: 0.5rem;
     outline: none;
     font-size: 1rem;

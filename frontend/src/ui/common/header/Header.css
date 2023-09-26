@@ -13,7 +13,9 @@ header {
     cursor: pointer;
 }
 
-h1 {
+.logo-text {
     margin: 0;
     padding: 1rem;
+    font-size: 1.5rem;
+    font-weight: 500;
 }

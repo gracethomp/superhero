@@ -1,5 +1,5 @@
 button {
-    transition: background-color 0.3s ease-in-out;
+    transition: background-color 0.2s ease-in-out;
     padding: 1rem;
     display: flex;
     align-items: center;
@@ -8,6 +8,16 @@ button {
     font-weight: 600;
     font-size: medium;
     cursor: pointer;
+}
+
+button.primary {
+    padding: 0.75rem;
+    background-color: #29abe2;;
+    color: white;
+}
+
+button.primary:hover {
+    background-color: #1d789f;
 }
 
 button.secondary {

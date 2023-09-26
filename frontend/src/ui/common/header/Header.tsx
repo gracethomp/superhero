@@ -7,7 +7,7 @@ const Header = () => {
     <header>
       <div className="header-logo">
         <img src={icons.logo} alt="logo" />
-        <h1>Superheroes</h1>
+        <p className="logo-text">Superheroes</p>
       </div>
       <Button variant="secondary" icon={icons.plus}>
         Add new superhero
