@@ -1,9 +1,12 @@
+.card {
+    flex: 1;
+}
+
 .superhero-card {
     transition: border 0.3s ease-in-out;
     display: flex;
     justify-content: center;
     align-items: flex-end;
-    width: 15rem;
     height: 34rem;
     border-radius: 1rem;
     border: 6px solid white;
