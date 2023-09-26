@@ -1,7 +1,8 @@
 import SuperheroCard from "../ui/cards/SuperheroCard";
 import Header from "../ui/common/header/Header";
+import Pagination from "../ui/common/pagination/Pagination";
 
-const Home = () => {
+const HomePage = () => {
   return (
     <>
       <Header />
@@ -12,8 +13,9 @@ const Home = () => {
         <SuperheroCard />
         <SuperheroCard />
       </div>
+      <Pagination />
     </>
   );
 };
 
-export default Home;
+export default HomePage;
