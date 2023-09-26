@@ -1,0 +1,63 @@
+main {
+    padding: 4rem 7rem;
+}
+
+.superpowers {
+    color: #29abe2;
+    font-size: 1.75rem;
+    font-weight: 300;
+}
+
+.real-name {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 100;
+}
+
+.superhero-main {
+    display: flex;
+    margin-bottom: 3rem;
+    align-items: stretch;
+    justify-content: space-between;
+    gap: 3rem;
+}
+
+.origin-description {
+    font-size: 1.25rem;
+    padding: 1rem 0;
+}
+
+.superhero-image {
+    width: 20rem;
+    height: 30rem;
+    border-radius: 1rem;
+    filter: drop-shadow(0 10px 8px rgba(255, 225, 0, 0.288)) drop-shadow(0 4px 3px rgba(255, 183, 0, 0.574));
+    object-fit: cover;
+    cursor: pointer;
+}
+
+.superhero-nickname {
+    margin: 0;
+    color: #29abe2;
+}
+
+.superpowers-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.superhero-text-data {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+}
+
+.buttons {
+    flex-grow: 1;
+    margin-top: 4rem;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    gap: 1rem;
+}

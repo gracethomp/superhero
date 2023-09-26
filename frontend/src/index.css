@@ -12,6 +12,10 @@ a {
   text-decoration: none;
 }
 
+p {
+  margin: 0;
+}
+
 .cards {
   display: flex;
   margin: 2rem;

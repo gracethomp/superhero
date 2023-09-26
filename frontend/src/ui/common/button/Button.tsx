@@ -3,7 +3,7 @@ import "./Button.css";
 
 type ButtonProps = {
   children: string;
-  variant: "primary" | "secondary";
+  variant: "primary" | "secondary" | "caution";
   icon?: string;
 };
 

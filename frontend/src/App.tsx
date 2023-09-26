@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import CreateSuperheroPage from "./pages/CreateSuperheroPage";
 import { routes } from "./utils/routes";
+import SuperheroPage from "./pages/SuperheroPage";
 
 function App() {
   return (
@@ -9,6 +10,7 @@ function App() {
       <Routes>
         <Route path={routes.home} element={<HomePage />} />
         <Route path={routes.newHero} element={<CreateSuperheroPage />} />
+        <Route path={routes.superhero} element={<SuperheroPage />} />
       </Routes>
     </BrowserRouter>
   );
