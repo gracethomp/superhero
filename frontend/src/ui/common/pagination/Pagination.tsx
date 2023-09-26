@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { icons } from "../../../icons/icons";
 import "./Pagination.css";
-import { useAppDispatch } from "../../../hooks/redux";
+import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
 import {
   decrementPage,
   incrementPage,
@@ -9,17 +9,19 @@ import {
 
 const Pagination: FC = () => {
   const dispatch = useAppDispatch();
+  const page = useAppSelector(state => state.superheroes.page);
+  const totalCount = useAppSelector(state => state.superheroes.totalCount); //think about it
 
   return (
     <div className="pagination">
       <img
-        src={icons.leftArrow}
+        src={page !== 1 ? icons.leftArrow : icons.leftArrowDisabled}
         alt="left arrow"
         className="arrow"
         onClick={() => dispatch(decrementPage())}
       />
       <img
-        src={icons.rightArrow}
+        src={Math.ceil(totalCount / 5) >= page + 1 ? icons.rightArrow : icons.rightArrowDisabled}
         alt="right arrow"
         className="arrow"
         onClick={() => dispatch(incrementPage())}
