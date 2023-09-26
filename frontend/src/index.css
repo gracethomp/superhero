@@ -10,7 +10,7 @@ body {
 
 .cards {
   display: flex;
-  margin-top: 2rem;
+  margin: 2rem;
   overflow: auto;
-  justify-content: space-around;
+  justify-content: space-between;
 }

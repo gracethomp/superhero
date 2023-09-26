@@ -5,14 +5,17 @@ button {
     align-items: center;
     border: none;
     border-radius: 0.5rem;
-    background-color: white;
-    color: #29abe2;
     font-weight: 600;
     font-size: medium;
     cursor: pointer;
 }
 
-button:hover {
+button.secondary {
+    background-color: white;
+    color: #29abe2;
+}
+
+button.secondary:hover {
     background-color: #d3d3d3;
 }
 
