@@ -10,7 +10,7 @@ function App() {
       <Routes>
         <Route path={routes.home} element={<HomePage />} />
         <Route path={routes.newHero} element={<CreateSuperheroPage />} />
-        <Route path={routes.superhero} element={<SuperheroPage />} />
+        <Route path={routes.superhero + ':id'} element={<SuperheroPage />} />
       </Routes>
     </BrowserRouter>
   );

@@ -20,6 +20,12 @@ export class SuperheroController {
     return this.superheroService.findAll(page);
   }
 
+  @Get('total-count')
+  async getTotalCount() {
+    const totalCount = await this.superheroService.getTotalCount();
+    return { totalCount };
+  }
+
   @Get(':id')
   findOne(@Param('id', ParseIntPipe) id: number) {
     return this.superheroService.findOne(id);

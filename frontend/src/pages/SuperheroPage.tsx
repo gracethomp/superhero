@@ -1,10 +1,27 @@
+import { useEffect } from "react";
+import { FC } from "react";
 import { icons } from "../icons/icons";
 import Button from "../ui/common/button/Button";
 import Header from "../ui/common/header/Header";
 import Tag from "../ui/common/tag/Tag";
 import "./Pages.css";
+import { useAppDispatch, useAppSelector } from "../hooks/redux";
+import { fetchSuperheroById } from "../store/services/superhero.services";
+import { useParams } from "react-router-dom";
 
-const SuperheroPage = () => {
+const SuperheroPage: FC = () => {
+  const dispatch = useAppDispatch();
+  const superhero = useAppSelector(
+    (state) => state.superheroes.currentSuperhero
+  );
+  const { id } = useParams();
+
+  useEffect(() => {
+    if (id) {
+      dispatch(fetchSuperheroById(parseInt(id)));
+    }
+  }, [dispatch, id]);
+
   return (
     <>
       <Header />
@@ -16,13 +33,9 @@ const SuperheroPage = () => {
             className="superhero-image"
           />
           <div className="superhero-text-data">
-            <h1 className="superhero-nickname">IRON MAN</h1>
-            <p className="real-name">Tony Stark</p>
-            <p className="origin-description">
-              He was born Kal-El on the planet Krypton, before being rocketed to
-              Earth as an infant by his scientist father Jor-El, moments before
-              Krypton's destruction...
-            </p>
+            <h1 className="superhero-nickname">{superhero?.nickname.toUpperCase()}</h1>
+            <p className="real-name">{superhero?.real_name}</p>
+            <p className="origin-description">{superhero?.origin_description}</p>
             <div>
               <h2 className="superpowers">Superpowers</h2>
               <div className="superpowers-tags">

@@ -63,4 +63,8 @@ export class SuperheroService {
     });
     this.logger.log(`Superhero ${id} deleted`);
   }
+
+  async getTotalCount(): Promise<number> {
+    return this.superheroRepository.count();
+  }
 }

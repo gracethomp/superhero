@@ -1,27 +1,29 @@
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
 import SuperheroCard from "../ui/cards/SuperheroCard";
 import Header from "../ui/common/header/Header";
 import Pagination from "../ui/common/pagination/Pagination";
 import { fetchAllSuperheroes } from "../store/services/superhero.services";
-import { AppDispatch } from "../store";
+import { useAppDispatch, useAppSelector } from "../hooks/redux";
+import { Superhero } from "../types";
 
 const HomePage = () => {
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useAppDispatch();
+  const superheroes: Superhero[] = useAppSelector(
+    (state) => state.superheroes.superheroes
+  );
+  const page = useAppSelector((state) => state.superheroes.page);
 
   useEffect(() => {
-    dispatch(fetchAllSuperheroes());
-  }, [dispatch]);
+    dispatch(fetchAllSuperheroes(page));
+  }, [dispatch, page]);
 
   return (
     <>
       <Header />
       <div className="cards">
-        <SuperheroCard />
-        <SuperheroCard />
-        <SuperheroCard />
-        <SuperheroCard />
-        <SuperheroCard />
+        {superheroes.map((superhero) => (
+          <SuperheroCard key={superhero.id} superhero={superhero}/>
+        ))}
       </div>
       <Pagination />
     </>
