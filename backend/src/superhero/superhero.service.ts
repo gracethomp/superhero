@@ -10,8 +10,11 @@ export class SuperheroService {
   ) {}
   private readonly logger = new Logger(SuperheroService.name);
 
-  async findAll(): Promise<Superhero[]> {
-    return this.superheroRepository.findAll();
+  async findAll(page: number = 1): Promise<Superhero[]> {
+    return this.superheroRepository.findAll({
+      limit: 5,
+      offset: (page - 1) * 5, //5 should be as const
+    });
   }
 
   async findOne(id: number) {
