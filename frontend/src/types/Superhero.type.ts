@@ -1,5 +1,5 @@
 export type Superhero = {
-  id: number;
+  id?: number;
   nickname: string;
   real_name: string;
   origin_description: string;

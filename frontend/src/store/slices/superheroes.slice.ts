@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
+  createNewSuperhero,
   fetchAllSuperheroes,
   fetchSuperheroById,
   fetchTotalCount,
@@ -31,10 +32,10 @@ const superheroesSlice = createSlice({
       }
     },
     decrementPage(state) {
-      if(state.page !== 1) {
+      if (state.page !== 1) {
         state.page--;
       }
-    }
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -54,7 +55,8 @@ const superheroesSlice = createSlice({
       })
       .addCase(fetchTotalCount.fulfilled, (state, action) => {
         state.totalCount = action.payload;
-      });
+      })
+      .addCase(createNewSuperhero.fulfilled, (state, action) => {});
   },
 });
 
