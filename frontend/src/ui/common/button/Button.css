@@ -1,0 +1,43 @@
+button {
+    transition: background-color 0.2s ease-in-out;
+    padding: 0.75rem;
+    display: flex;
+    align-items: center;
+    border: none;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    font-size: medium;
+    cursor: pointer;
+}
+
+button.primary {
+
+    background-color: #29abe2;
+    ;
+    color: white;
+}
+
+button.primary:hover {
+    background-color: #1d789f;
+}
+
+button.caution {
+    border: 1px solid #e22929;
+    background-color: white;
+    color: #e22929;
+}
+
+button.secondary {
+    padding: 1rem;
+    background-color: white;
+    color: #29abe2;
+}
+
+button.secondary:hover,
+button.caution:hover {
+    background-color: #d3d3d3;
+}
+
+.button-icon {
+    margin-right: 1rem;
+}
