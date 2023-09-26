@@ -5,6 +5,7 @@ import leftArrowDisabled from "./leftArrowDisabled.svg";
 import rightArrow from "./rightArrow.svg";
 import rightArrowDisabled from "./rightArrowDisabled.svg";
 import pencil from "./pencil.svg";
+import warning from "./warning.svg";
 
 const icons = {
   logo: logo,
@@ -14,6 +15,7 @@ const icons = {
   rightArrow: rightArrow,
   rightArrowDisabled: rightArrowDisabled,
   pencil: pencil,
+  warning: warning,
 };
 
 export { icons };

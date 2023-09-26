@@ -4,13 +4,16 @@ import "./Form.css";
 import Button from "../common/button/Button";
 import { Superhero } from "../../types";
 import { useAppDispatch } from "../../hooks/redux";
+import { useNavigate } from 'react-router-dom';
 import { createNewSuperhero } from "../../store/services/superhero.services";
+import { routes } from "../../utils/routes";
 
 type FormProps = {
   title: string;
 };
 
 const Form: FC<FormProps> = (props) => {
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [superhero, setSuperhero] = useState<Superhero>({
     nickname: "",
@@ -19,6 +22,7 @@ const Form: FC<FormProps> = (props) => {
     superpowers: "",
     catch_phrase: "",
   });
+  const [warning, setWarning] = useState<string>();
   const fields: string[] = [
     "Nickname",
     "Real name",
@@ -36,7 +40,20 @@ const Form: FC<FormProps> = (props) => {
   };
 
   const handleSubmit = () => {
-    dispatch(createNewSuperhero(superhero));
+    const isAnyStringFieldEmpty = Object.entries(superhero).some(
+      ([key, value]) => {
+        if (typeof value === "string") {
+          return value.trim() === "";
+        }
+        return false;
+      }
+    );
+    if (isAnyStringFieldEmpty) {
+      setWarning("All fields should be filled!");
+    } else {
+      dispatch(createNewSuperhero(superhero));
+      navigate(routes.home);
+    }
   };
 
   return (
@@ -52,12 +69,19 @@ const Form: FC<FormProps> = (props) => {
               field.toLowerCase().replace(" ", "_") as keyof Superhero
             ]?.toString()}
             onChange={handleInputChange}
+            isWarned={
+              !!warning &&
+              superhero[
+                field.toLowerCase().replace(" ", "_") as keyof Superhero
+              ]?.toString() === ""
+            }
           />
         ))}
       </div>
       <Button variant={"primary"} onClick={handleSubmit}>
         Create superhero
       </Button>
+      {warning && <p className="form-warning-text">{warning}</p>}
     </div>
   );
 };
