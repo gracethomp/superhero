@@ -6,7 +6,7 @@ const CreateSuperheroPage = () => {
     <>
       <Header />
       <main>
-        <Form title="Create new superhero"/>
+        <Form title="Create superhero"/>
       </main>
     </>
   );

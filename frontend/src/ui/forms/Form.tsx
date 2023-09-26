@@ -79,7 +79,7 @@ const Form: FC<FormProps> = (props) => {
         ))}
       </div>
       <Button variant={"primary"} onClick={handleSubmit}>
-        Create superhero
+        {props.title}
       </Button>
       {warning && <p className="form-warning-text">{warning}</p>}
     </div>
