@@ -17,7 +17,7 @@ const Form: FC<FormProps> = (props) => {
   ];
   return (
     <div className="superhero-form">
-      <h2>{props.title}</h2>
+      <h1>{props.title}</h1>
       <div className="fields">
         {fields.map((value, index) => (
           <Input key={index} placeholder={value} />
