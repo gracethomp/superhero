@@ -7,7 +7,8 @@ import Tag from "../ui/common/tag/Tag";
 import "./Pages.css";
 import { useAppDispatch, useAppSelector } from "../hooks/redux";
 import { fetchSuperheroById } from "../store/services/superhero.services";
-import { useParams } from "react-router-dom";
+import { useParams, NavLink } from "react-router-dom";
+import { routes } from "../utils/routes";
 
 const SuperheroPage: FC = () => {
   const dispatch = useAppDispatch();
@@ -49,9 +50,11 @@ const SuperheroPage: FC = () => {
               </div>
             </div>
             <div className="buttons">
-              <Button variant="primary" icon={icons.pencil}>
-                Edit
-              </Button>
+              <NavLink to={routes.editSuperhero}>
+                <Button variant="primary" icon={icons.pencil}>
+                  Edit
+                </Button>
+              </NavLink>
               <Button variant="caution">Delete</Button>
             </div>
           </div>

@@ -5,28 +5,32 @@ import Button from "../common/button/Button";
 import { Superhero, Superpower } from "../../types";
 import { useAppDispatch } from "../../hooks/redux";
 import { useNavigate } from "react-router-dom";
-import { createNewSuperhero } from "../../store/services/superhero.services";
+import {
+  createNewSuperhero,
+  updateSuperhero,
+} from "../../store/services/superhero.services";
 import { routes } from "../../utils/routes";
 import Dropdown from "../common/dropdown/Dropdown";
 
 type FormProps = {
   title: string;
+  superhero?: Superhero;
 };
 
 const Form: FC<FormProps> = (props) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const [superhero, setSuperhero] = useState<Superhero>({
-    nickname: "",
-    real_name: "",
-    origin_description: "",
-    superpowers: [],
-    catch_phrase: "",
-  });
-  const [warning, setWarning] = useState<string>();
-  const [selectedPowers, setSelectedPowers] = useState<Set<Superpower>>(
-    new Set()
+  const isNew = props.superhero === undefined;
+  const [superhero, setSuperhero] = useState<Superhero>(
+    props.superhero ?? {
+      nickname: "",
+      real_name: "",
+      origin_description: "",
+      superpowers: [],
+      catch_phrase: "",
+    }
   );
+  const [warning, setWarning] = useState<string>();
   const fields: string[] = [
     "Nickname",
     "Real name",
@@ -42,27 +46,39 @@ const Form: FC<FormProps> = (props) => {
     }));
   };
 
-  const handleSuperpowersChange = (option: Superpower) =>
-    setSelectedPowers((prevValues) => {
-      const newSet = new Set(prevValues);
-      newSet.add(option);
-      return newSet;
-    });
+  const handleSuperpowersChange = (option: Superpower) => {
+    if (!superhero.superpowers.some((value) => value.id === option.id)) {
+      setSuperhero((prevSuperhero) => ({
+        ...prevSuperhero,
+        superpowers: [...prevSuperhero.superpowers, option],
+      }));
+    }
+  };
 
   const handleSubmit = () => {
     const isAnyStringFieldEmpty = Object.entries(superhero).some(
       ([key, value]) => {
-        if (typeof value === "string") {
-          return value.trim() === ""; //to change
-        }
-        return false;
+        return !value;
       }
     );
     if (isAnyStringFieldEmpty) {
       setWarning("All fields should be filled!");
     } else {
-      dispatch(createNewSuperhero({...superhero, superpowers: Array.from(selectedPowers)}));
-      navigate(routes.home);
+      if (isNew) {
+        dispatch(
+          createNewSuperhero({
+            ...superhero
+          })
+        );
+        navigate(routes.home);
+      } else {
+        dispatch(
+          updateSuperhero({
+            ...superhero
+          })
+        );
+        navigate(routes.superhero + superhero.id);
+      }
     }
   };
 
@@ -87,7 +103,10 @@ const Form: FC<FormProps> = (props) => {
             }
           />
         ))}
-        <Dropdown selectedPowers={Array.from(selectedPowers)} setSelectedOptions={handleSuperpowersChange} />
+        <Dropdown
+          selectedPowers={superhero.superpowers}
+          setSelectedOptions={handleSuperpowersChange}
+        />
       </div>
       <Button variant={"primary"} onClick={handleSubmit}>
         {props.title}

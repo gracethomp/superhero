@@ -3,6 +3,7 @@ import HomePage from "./pages/HomePage";
 import CreateSuperheroPage from "./pages/CreateSuperheroPage";
 import { routes } from "./utils/routes";
 import SuperheroPage from "./pages/SuperheroPage";
+import EditSuperheroPage from "./pages/EditSuperheroPage";
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
         <Route path={routes.home} element={<HomePage />} />
         <Route path={routes.newHero} element={<CreateSuperheroPage />} />
         <Route path={routes.superhero + ':id'} element={<SuperheroPage />} />
+        <Route path={routes.editSuperhero} element={<EditSuperheroPage />} />
       </Routes>
     </BrowserRouter>
   );

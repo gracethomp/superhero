@@ -50,3 +50,16 @@ export const createNewSuperhero = createAsyncThunk(
     }
   }
 );
+
+export const updateSuperhero = createAsyncThunk(
+  "superheroes/updateSuperhero",
+  async (superhero: Superhero) => {
+    try {
+      const superpowersIds = superhero.superpowers.map(power => power.id)
+      const response = await axios.patch(`/superhero/${superhero.id}`, {...superhero, superpowers: superpowersIds});
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+);
