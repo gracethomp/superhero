@@ -1,5 +1,12 @@
-import { Column, Model, Table, NotEmpty } from 'sequelize-typescript';
+import {
+  Column,
+  Model,
+  Table,
+  NotEmpty,
+  BelongsToMany,
+} from 'sequelize-typescript';
 import { InferAttributes, InferCreationAttributes } from 'sequelize/types';
+import { PowerHero, Superhero } from 'src/superhero';
 
 @Table({ timestamps: false })
 export class Superpower extends Model<
@@ -9,4 +16,7 @@ export class Superpower extends Model<
   @NotEmpty
   @Column
   public superpower: string;
+
+  @BelongsToMany(() => Superhero, () => PowerHero)
+  Superhero: Superhero[];
 }
