@@ -2,11 +2,12 @@ import { FC, useState } from "react";
 import Input from "../common/input/Input";
 import "./Form.css";
 import Button from "../common/button/Button";
-import { Superhero } from "../../types";
+import { Superhero, Superpower } from "../../types";
 import { useAppDispatch } from "../../hooks/redux";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import { createNewSuperhero } from "../../store/services/superhero.services";
 import { routes } from "../../utils/routes";
+import Dropdown from "../common/dropdown/Dropdown";
 
 type FormProps = {
   title: string;
@@ -27,7 +28,6 @@ const Form: FC<FormProps> = (props) => {
     "Nickname",
     "Real name",
     "Origin description",
-    "Superpowers",
     "Catch phrase",
   ];
 
@@ -77,6 +77,7 @@ const Form: FC<FormProps> = (props) => {
             }
           />
         ))}
+        <Dropdown />
       </div>
       <Button variant={"primary"} onClick={handleSubmit}>
         {props.title}

@@ -3,7 +3,7 @@ import "./Input.css";
 import { icons } from "../../../icons/icons";
 
 type InputProps = {
-  name: string;
+  name?: string;
   placeholder: string;
   value?: string;
   isWarned?: boolean;
