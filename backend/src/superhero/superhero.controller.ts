@@ -7,6 +7,7 @@ import {
   ParseIntPipe,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common';
 import { SuperheroService } from './superhero.service';
 import { CreateSuperheroDto, UpdateSuperheroDto } from './dto';
@@ -15,8 +16,14 @@ import { CreateSuperheroDto, UpdateSuperheroDto } from './dto';
 export class SuperheroController {
   constructor(private readonly superheroService: SuperheroService) {}
   @Get()
-  findAll() {
-    return this.superheroService.findAll();
+  findAll(@Query('page') page: number) {
+    return this.superheroService.findAll(page);
+  }
+
+  @Get('total-count')
+  async getTotalCount() {
+    const totalCount = await this.superheroService.getTotalCount();
+    return { totalCount };
   }
 
   @Get(':id')

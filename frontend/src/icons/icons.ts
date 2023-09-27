@@ -1,15 +1,23 @@
 import logo from "./logo.svg";
 import plus from "./plus.svg";
 import leftArrow from "./leftArrow.svg";
+import leftArrowDisabled from "./leftArrowDisabled.svg";
 import rightArrow from "./rightArrow.svg";
-import pencil from "./pencil.svg"
+import rightArrowDisabled from "./rightArrowDisabled.svg";
+import pencil from "./pencil.svg";
+import warning from "./warning.svg";
+import downArrow from "./downArrow.svg";
 
 const icons = {
   logo: logo,
   plus: plus,
   leftArrow: leftArrow,
+  leftArrowDisabled: leftArrowDisabled,
   rightArrow: rightArrow,
+  rightArrowDisabled: rightArrowDisabled,
   pencil: pencil,
+  warning: warning,
+  downArrow: downArrow,
 };
 
 export { icons };

@@ -1,13 +1,27 @@
+import { Superhero } from "../../types";
+import { routes } from "../../utils/routes";
 import "./SuperheroCard.css";
+import { FC } from "react";
+import { useNavigate } from 'react-router-dom';
 
-const SuperheroCard = () => {
+type SuperheroCardProps = {
+  superhero: Superhero;
+}
+
+const SuperheroCard: FC<SuperheroCardProps> = (props) => {
+  const navigate = useNavigate();
   const cardStyle = {
-    backgroundImage: `url(https://cdn.britannica.com/49/182849-050-4C7FE34F/scene-Iron-Man.jpg)`,
+    backgroundImage: `url(https://cdn.britannica.com/49/182849-050-4C7FE34F/scene-Iron-Man.jpg)`, // to change
   };
+
+  const handleClick = () => {
+    navigate(routes.superhero + props.superhero.id);
+  }
+
   return (
-    <div className="card">
+    <div className="card" onClick={handleClick}>
       <div className="superhero-card" style={cardStyle}>
-        <p className="superhero-nickname">Superhero</p>
+        <p className="superhero-nickname">{props.superhero.nickname}</p>
       </div>
     </div>
   );
