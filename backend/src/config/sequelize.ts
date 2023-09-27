@@ -10,6 +10,6 @@ export const sequelizeDevelopmentConfig: SequelizeModuleOptions = {
   host: 'db',
   dialect: 'postgres',
   autoLoadModels: true,
-  sync: { force: true },
+  // sync: { force: true },
   models: [Superhero, Superpower, PowerHero],
 };

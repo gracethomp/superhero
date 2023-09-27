@@ -17,6 +17,6 @@ export class Superpower extends Model<
   @Column
   public superpower: string;
 
-  @BelongsToMany(() => Superhero, () => PowerHero)
-  Superhero: Superhero[];
+  // @BelongsToMany(() => Superhero, () => PowerHero)
+  // superheroes: Superhero[];
 }

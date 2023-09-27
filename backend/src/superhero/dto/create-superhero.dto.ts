@@ -1,4 +1,13 @@
-import { IsNotEmpty, IsString, MaxLength } from 'class-validator';
+import {
+  IsArray,
+  IsNotEmpty,
+  IsString,
+  MaxLength,
+  Min,
+  IsNumber,
+  ArrayMinSize,
+} from 'class-validator';
+import { UniqueArrayValues } from 'src/utils';
 
 export class CreateSuperheroDto {
   @IsNotEmpty()
@@ -15,9 +24,15 @@ export class CreateSuperheroDto {
   @IsString()
   public origin_description: string;
 
-  @IsNotEmpty()
-  @IsString()
-  public superpowers: string;
+  @IsArray()
+  @ArrayMinSize(1, { message: 'At least one number is required' })
+  @IsNumber(
+    {},
+    { each: true, message: 'All items in the array must be numbers' },
+  )
+  @UniqueArrayValues({ message: 'Superpowers ids must be unique' })
+  @Min(1, { each: true, message: 'All numbers in the array must be >= 1' })
+  public superpowers: number[];
 
   @IsNotEmpty()
   @IsString()
