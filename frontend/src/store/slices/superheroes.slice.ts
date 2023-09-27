@@ -26,6 +26,9 @@ const superheroesSlice = createSlice({
   name: "superheroes",
   initialState,
   reducers: {
+    clearCurrentHero(state) {
+      state.currentSuperhero = undefined;
+    },
     incrementPage(state) {
       if (Math.ceil(state.totalCount / 5) >= state.page + 1) {
         state.page++;
@@ -60,6 +63,6 @@ const superheroesSlice = createSlice({
   },
 });
 
-export const { incrementPage, decrementPage } = superheroesSlice.actions;
+export const { incrementPage, decrementPage, clearCurrentHero } = superheroesSlice.actions;
 
 export default superheroesSlice.reducer;

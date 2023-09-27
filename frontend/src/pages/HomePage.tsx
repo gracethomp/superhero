@@ -5,6 +5,7 @@ import Pagination from "../ui/common/pagination/Pagination";
 import { fetchAllSuperheroes } from "../store/services/superhero.services";
 import { useAppDispatch, useAppSelector } from "../hooks/redux";
 import { Superhero } from "../types";
+import { clearCurrentHero } from "../store/slices/superheroes.slice";
 
 const HomePage = () => {
   const dispatch = useAppDispatch();
@@ -14,6 +15,10 @@ const HomePage = () => {
   const page = useAppSelector((state) => state.superheroes.page);
 
   useEffect(() => {
+    dispatch(clearCurrentHero());
+  }, [dispatch]);
+  
+  useEffect(() => {
     dispatch(fetchAllSuperheroes(page));
   }, [dispatch, page]);
 
@@ -22,7 +27,7 @@ const HomePage = () => {
       <Header />
       <div className="cards">
         {superheroes.map((superhero) => (
-          <SuperheroCard key={superhero.id} superhero={superhero}/>
+          <SuperheroCard key={superhero.id} superhero={superhero} />
         ))}
       </div>
       <Pagination />
