@@ -19,7 +19,7 @@ const Form: FC<FormProps> = (props) => {
     nickname: "",
     real_name: "",
     origin_description: "",
-    superpowers: "",
+    superpowers: [],
     catch_phrase: "",
   });
   const [warning, setWarning] = useState<string>();

@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/sequelize';
 import { PowerHero, Superhero } from './entities';
 import { CreateSuperheroDto, UpdateSuperheroDto } from './dto';
 import { Sequelize } from 'sequelize-typescript';
+import { Superpower } from 'src/superpowers';
 
 @Injectable()
 export class SuperheroService {
@@ -21,7 +22,9 @@ export class SuperheroService {
   }
 
   async findOne(id: number) {
-    const superhero = await this.superheroRepository.findByPk(id);
+    const superhero = await this.superheroRepository.findByPk(id, {
+      include: [{ model: Superpower }],
+    });
     if (superhero === null) {
       throw new NotFoundException('Superhero not found');
     }

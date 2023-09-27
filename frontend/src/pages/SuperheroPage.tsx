@@ -33,18 +33,19 @@ const SuperheroPage: FC = () => {
             className="superhero-image"
           />
           <div className="superhero-text-data">
-            <h1 className="superhero-nickname">{superhero?.nickname.toUpperCase()}</h1>
+            <h1 className="superhero-nickname">
+              {superhero?.nickname.toUpperCase()}
+            </h1>
             <p className="real-name">{superhero?.real_name}</p>
-            <p className="origin-description">{superhero?.origin_description}</p>
+            <p className="origin-description">
+              {superhero?.origin_description}
+            </p>
             <div>
               <h2 className="superpowers">Superpowers</h2>
               <div className="superpowers-tags">
-                <Tag>solar energy absorption</Tag>
-                <Tag>healing factor</Tag>
-                <Tag>solar flare</Tag>
-                <Tag>heat vision</Tag>
-                <Tag>solar invulnerability</Tag>
-                <Tag>flight</Tag>
+                {superhero?.superpowers?.map((power) => (
+                  <Tag>{power.superpower}</Tag>
+                ))}
               </div>
             </div>
             <div className="buttons">
