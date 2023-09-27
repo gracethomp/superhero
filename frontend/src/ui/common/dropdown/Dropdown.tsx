@@ -1,41 +1,52 @@
-import { FC, useState } from "react";
+import { FC, useState, useEffect } from "react";
 import { Superpower } from "../../../types";
 import "./Dropdown.css";
 import { icons } from "../../../icons/icons";
+import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
+import { fetchAllSuperpowers } from "../../../store/services/superpowers.services";
+import Tag from "../tag/Tag";
 
 type SelectProps = {
   className?: string;
   onChange?: (value: string) => void;
+  selectedPowers: Superpower[];
+  setSelectedOptions: (power: Superpower) => void;
 };
 
 const Dropdown: FC<SelectProps> = (props) => {
+  const dispatch = useAppDispatch();
+  const options: Superpower[] = useAppSelector(
+    (state) => state.superpowers.superpowers
+  );
   const [openSelect, setOpenSelect] = useState(false);
-  const options: Superpower[] = [
-    { id: 1, superpower: "power" },
-    { id: 1, superpower: "power" },
-    { id: 1, superpower: "power" },
-    { id: 1, superpower: "power" },
-    { id: 1, superpower: "power" },
-  ];
+  useEffect(() => {
+    dispatch(fetchAllSuperpowers());
+  }, [dispatch]);
 
-  const handleChange = (index: number) => {
+  const handleChange = (option: Superpower) => {
     setOpenSelect(false);
+    props.setSelectedOptions(option);
   };
 
   return (
     <div className="dropdown-container">
       <div className="dropdown" onClick={() => setOpenSelect(!openSelect)}>
-        <input placeholder="Superpowers" />
+        {props.selectedPowers.map((option) => (
+          <Tag>{option.superpower}</Tag>
+        ))}
+        <input
+          placeholder={props.selectedPowers.length === 0 ? "Superpowers" : ""}
+        />
         <img src={icons.downArrow} alt="arrow down" className="arrow" />
       </div>
       {openSelect && (
         <div className="dropdown-list">
           <div className="dropdown-list-items">
-            {options?.map((option, index) => (
+            {options?.map((option) => (
               <div
                 className="dropdown-option"
-                key={index}
-                onClick={() => handleChange(index)}
+                key={option.id}
+                onClick={() => handleChange(option)}
               >
                 {option.superpower}
               </div>

@@ -24,6 +24,9 @@ const Form: FC<FormProps> = (props) => {
     catch_phrase: "",
   });
   const [warning, setWarning] = useState<string>();
+  const [selectedPowers, setSelectedPowers] = useState<Set<Superpower>>(
+    new Set()
+  );
   const fields: string[] = [
     "Nickname",
     "Real name",
@@ -39,11 +42,18 @@ const Form: FC<FormProps> = (props) => {
     }));
   };
 
+  const handleSuperpowersChange = (option: Superpower) =>
+    setSelectedPowers((prevValues) => {
+      const newSet = new Set(prevValues);
+      newSet.add(option);
+      return newSet;
+    });
+
   const handleSubmit = () => {
     const isAnyStringFieldEmpty = Object.entries(superhero).some(
       ([key, value]) => {
         if (typeof value === "string") {
-          return value.trim() === "";
+          return value.trim() === ""; //to change
         }
         return false;
       }
@@ -51,7 +61,7 @@ const Form: FC<FormProps> = (props) => {
     if (isAnyStringFieldEmpty) {
       setWarning("All fields should be filled!");
     } else {
-      dispatch(createNewSuperhero(superhero));
+      dispatch(createNewSuperhero({...superhero, superpowers: Array.from(selectedPowers)}));
       navigate(routes.home);
     }
   };
@@ -77,7 +87,7 @@ const Form: FC<FormProps> = (props) => {
             }
           />
         ))}
-        <Dropdown />
+        <Dropdown selectedPowers={Array.from(selectedPowers)} setSelectedOptions={handleSuperpowersChange} />
       </div>
       <Button variant={"primary"} onClick={handleSubmit}>
         {props.title}

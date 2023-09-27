@@ -32,7 +32,7 @@
 
 .dropdown-list-items {
     overflow-y: auto;
-    max-height: 4rem;
+    max-height: 8rem;
 }
 
 .dropdown-option {

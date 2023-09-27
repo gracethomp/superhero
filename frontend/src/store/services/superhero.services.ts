@@ -42,7 +42,8 @@ export const createNewSuperhero = createAsyncThunk(
   "superheroes/createNewSuperhero",
   async (superhero: Superhero) => {
     try {
-      const response = await axios.post(`/superhero/`, superhero);
+      const superpowersIds = superhero.superpowers.map(power => power.id)
+      const response = await axios.post(`/superhero/`, {...superhero, superpowers: superpowersIds});
       return response.data;
     } catch (error) {
       throw error;
