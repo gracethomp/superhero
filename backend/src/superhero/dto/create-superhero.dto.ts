@@ -3,9 +3,8 @@ import {
   IsNotEmpty,
   IsString,
   MaxLength,
-  Min,
-  IsNumber,
   ArrayMinSize,
+  IsNumberString,
 } from 'class-validator';
 import { UniqueArrayValues } from 'src/utils';
 
@@ -25,17 +24,21 @@ export class CreateSuperheroDto {
   public origin_description: string;
 
   @IsArray()
-  @ArrayMinSize(1, { message: 'At least one number is required' })
-  @IsNumber(
+  @ArrayMinSize(2, { message: 'At least two number is required' })
+  @IsNumberString(
     {},
-    { each: true, message: 'All items in the array must be numbers' },
+    {
+      each: true,
+      message: 'All items in the array must be numbers',
+    },
   )
   @UniqueArrayValues({ message: 'Superpowers ids must be unique' })
-  @Min(1, { each: true, message: 'All numbers in the array must be >= 1' })
-  public superpowers: number[];
+  public superpowers: string[];
 
   @IsNotEmpty()
   @IsString()
   @MaxLength(255)
   public catch_phrase: string;
+
+  public mediaIds?: string[];
 }

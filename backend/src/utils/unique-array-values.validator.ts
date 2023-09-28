@@ -10,7 +10,7 @@ export class UniqueArrayValuesConstraint
   implements ValidatorConstraintInterface
 {
   validate(values: any[]) {
-    return values.length === new Set(values).size;
+    return values && values.length === new Set(values).size;
   }
 
   defaultMessage() {

@@ -5,6 +5,7 @@ import { CreateSuperheroDto, UpdateSuperheroDto } from './dto';
 import { Sequelize } from 'sequelize-typescript';
 import { Superpower } from 'src/superpowers';
 import { mapSuperhero } from 'src/utils';
+import { Media } from './media/entity/media.entity';
 
 @Injectable()
 export class SuperheroService {
@@ -12,6 +13,7 @@ export class SuperheroService {
     private sequelize: Sequelize,
     @InjectModel(Superhero) private superheroRepository: typeof Superhero,
     @InjectModel(PowerHero) private powerHeroRepository: typeof PowerHero,
+    @InjectModel(Media) private mediaRepository: typeof Media,
   ) {}
   private readonly logger = new Logger(SuperheroService.name);
 
@@ -19,7 +21,7 @@ export class SuperheroService {
     return this.superheroRepository.findAll({
       order: [['id', 'ASC']],
       limit: 5,
-      offset: (page - 1) * 5, //5 should be as const
+      offset: (page - 1) * 5,
     });
   }
 
@@ -34,7 +36,7 @@ export class SuperheroService {
   }
 
   async create(createSuperheroDto: CreateSuperheroDto) {
-    const { superpowers } = createSuperheroDto;
+    const { superpowers, mediaIds } = createSuperheroDto;
     try {
       return await this.sequelize.transaction(async (t) => {
         const transactionHost = { transaction: t };
@@ -51,7 +53,7 @@ export class SuperheroService {
               await this.powerHeroRepository.create(
                 {
                   superhero_id: createdSuperhero.id,
-                  superpower_id: superpowerId,
+                  superpower_id: parseInt(superpowerId),
                 },
                 transactionHost,
               );
@@ -62,7 +64,17 @@ export class SuperheroService {
             }
           }),
         );
-
+        await Promise.all(
+          mediaIds.map(async (mediaId) => {
+            await this.mediaRepository.create(
+              {
+                superhero_id: createdSuperhero.id,
+                mediaId: mediaId,
+              },
+              transactionHost,
+            );
+          }),
+        );
         this.logger.log(`Superhero ${createdSuperhero.id} created`);
 
         return createdSuperhero;
@@ -95,13 +107,12 @@ export class SuperheroService {
                   superpower_id: superpowerId,
                 },
               });
-              this.logger.log(powerHero);
               if (powerHero.length === 0) {
                 try {
                   await this.powerHeroRepository.create(
                     {
                       superhero_id: id,
-                      superpower_id: superpowerId,
+                      superpower_id: parseInt(superpowerId),
                     },
                     transactionHost,
                   );

@@ -1,5 +1,6 @@
 import { SequelizeModuleOptions } from '@nestjs/sequelize';
 import { Superhero, PowerHero } from 'src/superhero';
+import { Media } from 'src/superhero/media/entity/media.entity';
 import { Superpower } from 'src/superpowers';
 
 export const sequelizeDevelopmentConfig: SequelizeModuleOptions = {
@@ -10,6 +11,6 @@ export const sequelizeDevelopmentConfig: SequelizeModuleOptions = {
   host: 'db',
   dialect: 'postgres',
   autoLoadModels: true,
-  // sync: { force: true },
-  models: [Superhero, Superpower, PowerHero],
+  sync: { force: true },
+  models: [Superhero, Superpower, PowerHero, Media],
 };

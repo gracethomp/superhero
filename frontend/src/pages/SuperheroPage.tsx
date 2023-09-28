@@ -9,6 +9,7 @@ import { useAppDispatch, useAppSelector } from "../hooks/redux";
 import { fetchSuperheroById } from "../store/services/superhero.services";
 import { useParams, NavLink } from "react-router-dom";
 import { routes } from "../utils/routes";
+import { fetchImage } from "../store/services/media.services";
 
 const SuperheroPage: FC = () => {
   const dispatch = useAppDispatch();

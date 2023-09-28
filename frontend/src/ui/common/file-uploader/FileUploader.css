@@ -1,0 +1,36 @@
+.files-uploader-container {
+    flex-grow: 1;
+    background-color: white;
+    border: 0.05rem solid #bababa;
+    border-radius: 0.5rem;
+    display: flex;
+    gap: 2rem;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+span.primary-button {
+    transition: background-color 0.2s ease-in-out;
+    border-radius: 0.5rem;
+    padding: 0.75rem;
+    background-color: #29abe2;
+    cursor: pointer;
+    color: white;
+}
+
+span.primary-button:hover {
+    background-color: #1d789f;
+}
+
+.uploaded-image {
+    height: 8rem;
+    width: 8rem;
+    object-fit: cover;
+    border-radius: 0.5rem;
+}
+
+.images {
+    display: flex;
+    gap: 1rem
+}

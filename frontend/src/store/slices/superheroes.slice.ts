@@ -6,12 +6,14 @@ import {
   fetchTotalCount,
 } from "../services/superhero.services";
 import { Superhero } from "../../types";
+import { fetchImage } from "../services/media.services";
 
 interface SuperheroState {
   totalCount: number;
   isLoading: boolean;
   page: number;
   currentSuperhero?: Superhero;
+  image?: Blob | MediaSource; //temp
   superheroes: Superhero[]; //error state should be here too
 }
 
@@ -59,10 +61,14 @@ const superheroesSlice = createSlice({
       .addCase(fetchTotalCount.fulfilled, (state, action) => {
         state.totalCount = action.payload;
       })
-      .addCase(createNewSuperhero.fulfilled, (state, action) => {});
+      .addCase(createNewSuperhero.fulfilled, (state, action) => {})
+      .addCase(fetchImage.fulfilled, (state, action) => {
+        state.image = action.payload;
+      });
   },
 });
 
-export const { incrementPage, decrementPage, clearCurrentHero } = superheroesSlice.actions;
+export const { incrementPage, decrementPage, clearCurrentHero } =
+  superheroesSlice.actions;
 
 export default superheroesSlice.reducer;
