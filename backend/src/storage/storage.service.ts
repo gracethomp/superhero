@@ -22,7 +22,6 @@ export class StorageService {
 
   async save(
     path: string,
-    contentType: string,
     media: Buffer,
     metadata: { [key: string]: string }[],
   ) {

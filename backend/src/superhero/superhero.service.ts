@@ -51,7 +51,7 @@ export class SuperheroService {
               await this.powerHeroRepository.create(
                 {
                   superhero_id: createdSuperhero.id,
-                  superpower_id: superpowerId,
+                  superpower_id: parseInt(superpowerId),
                 },
                 transactionHost,
               );
@@ -101,7 +101,7 @@ export class SuperheroService {
                   await this.powerHeroRepository.create(
                     {
                       superhero_id: id,
-                      superpower_id: superpowerId,
+                      superpower_id: parseInt(superpowerId),
                     },
                     transactionHost,
                   );

@@ -1,7 +1,6 @@
 import React, { useState, ChangeEvent } from "react";
 import { Input } from "@mui/material";
 import "./FileUploader.css";
-import Button from "../button/Button";
 
 const FileUploader: React.FC = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);

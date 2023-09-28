@@ -10,8 +10,6 @@
     align-items: center;
 }
 
-.files-uploader {}
-
 span.primary-button {
     transition: background-color 0.2s ease-in-out;
     border-radius: 0.5rem;
