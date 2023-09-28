@@ -10,25 +10,16 @@ export const fetchAllSuperheroes = createAsyncThunk(
       const superheroes = await Promise.all(
         response.data.map(async (item: Superhero) => {
           const mediaIds = await axios.get(
-            `superhero/media/superhero/${item.id}?page=${page}`
+            `/superhero/media/superhero/${item.id}`
           );
           const images = await Promise.all(
             mediaIds.data.map(async (mediaId: any) => {
               const imgsResponse = await axios.get(
-                `superhero/media/${mediaId.mediaId}`,
+                `/superhero/media/${mediaId.mediaId}`,
                 { responseType: "blob" }
               );
-
-              const blob = imgsResponse.data;
-              const reader = new FileReader();
-              return new Promise<string>((resolve, reject) => {
-                reader.onload = () => {
-                  const dataUrl = reader.result as string;
-                  resolve(dataUrl);
-                };
-                reader.onerror = reject;
-                reader.readAsDataURL(blob);
-              });
+              const imageUrl = URL.createObjectURL(imgsResponse.data);
+              return imageUrl;
             })
           );
           return { ...item, images };
@@ -46,7 +37,20 @@ export const fetchSuperheroById = createAsyncThunk(
   async (id: number) => {
     try {
       const response = await axios.get(`/superhero/${id}`);
-      return response.data;
+      const mediaIds = await axios.get(
+        `/superhero/media/superhero/${response.data.id}`
+      );
+      const images = await Promise.all(
+        mediaIds.data.map(async (mediaId: any) => {
+          const imgsResponse = await axios.get(
+            `/superhero/media/${mediaId.mediaId}`,
+            { responseType: "blob" }
+          );
+          const imageUrl = URL.createObjectURL(imgsResponse.data);
+          return imageUrl;
+        })
+      );
+      return { ...response.data, images: images };
     } catch (error) {
       throw error;
     }
@@ -67,7 +71,7 @@ export const fetchTotalCount = createAsyncThunk(
 
 export const createNewSuperhero = createAsyncThunk(
   "superheroes/createNewSuperhero",
-  async (payload: { superhero: Superhero; files: File[] }, thunkAPI) => {
+  async (payload: { superhero: Superhero; files: (File|string)[] }, thunkAPI) => {
     try {
       const formData = new FormData();
       formData.append("nickname", payload.superhero.nickname);
