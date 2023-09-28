@@ -24,7 +24,7 @@ export class CreateSuperheroDto {
   public origin_description: string;
 
   @IsArray()
-  @ArrayMinSize(1, { message: 'At least one number is required' })
+  @ArrayMinSize(2, { message: 'At least two number is required' })
   @IsNumberString(
     {},
     {

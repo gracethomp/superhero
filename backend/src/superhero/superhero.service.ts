@@ -5,7 +5,7 @@ import { CreateSuperheroDto, UpdateSuperheroDto } from './dto';
 import { Sequelize } from 'sequelize-typescript';
 import { Superpower } from 'src/superpowers';
 import { mapSuperhero } from 'src/utils';
-import { Media } from './entities/media.entity';
+import { Media } from './media/entity/media.entity';
 
 @Injectable()
 export class SuperheroService {

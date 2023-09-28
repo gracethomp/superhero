@@ -2,8 +2,13 @@ import React, { useState, ChangeEvent } from "react";
 import { Input } from "@mui/material";
 import "./FileUploader.css";
 
-const FileUploader: React.FC = () => {
-  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
+type FileUploaderProps = {
+  selectedFiles: File[],
+  setSelectedFiles: (files: File[]) => void,
+}
+
+const FileUploader: React.FC<FileUploaderProps> = (props) => {
+  // const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
 
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
@@ -13,8 +18,8 @@ const FileUploader: React.FC = () => {
         file.type.startsWith("image/")
       );
 
-      if (newFiles.length + selectedFiles.length <= 3) {
-        setSelectedFiles([...selectedFiles, ...newFiles]);
+      if (newFiles.length + props.selectedFiles.length <= 3) {
+        props.setSelectedFiles([...props.selectedFiles, ...newFiles]);
       } else {
         alert("You can upload a maximum of 3 image files.");
       }
@@ -22,9 +27,9 @@ const FileUploader: React.FC = () => {
   };
 
   const handleFileDelete = (index: number) => {
-    const updatedFiles = [...selectedFiles];
+    const updatedFiles = [...props.selectedFiles];
     updatedFiles.splice(index, 1);
-    setSelectedFiles(updatedFiles);
+    props.setSelectedFiles(updatedFiles);
   };
 
   // const handleUpload = () => {
@@ -44,15 +49,15 @@ const FileUploader: React.FC = () => {
           id="file-upload-input"
           onChange={handleFileChange}
         />
-        {selectedFiles.length < 3 && (
+        {props.selectedFiles.length < 3 && (
           <label htmlFor="file-upload-input">
             <span className="primary-button">Upload photo</span>
           </label>
         )}
       </div>
-      {selectedFiles.length > 0 && (
+      {props.selectedFiles.length > 0 && (
         <div className="images">
-          {selectedFiles.map((file, index) => (
+          {props.selectedFiles.map((file, index) => (
             <div key={index} className="uploaded-image-container">
               <img
                 src={URL.createObjectURL(file)}

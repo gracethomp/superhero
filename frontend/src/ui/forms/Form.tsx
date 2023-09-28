@@ -31,6 +31,7 @@ const Form: FC<FormProps> = (props) => {
       catch_phrase: "",
     }
   );
+  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [warning, setWarning] = useState<string>();
   const fields: string[] = [
     "Nickname",
@@ -68,7 +69,8 @@ const Form: FC<FormProps> = (props) => {
       if (isNew) {
         dispatch(
           createNewSuperhero({
-            ...superhero,
+            superhero: superhero,
+            files: selectedFiles,
           })
         );
         navigate(routes.home);
@@ -115,7 +117,10 @@ const Form: FC<FormProps> = (props) => {
         </Button>
         {warning && <p className="form-warning-text">{warning}</p>}
       </div>
-      <FileUploader />
+      <FileUploader
+        selectedFiles={selectedFiles}
+        setSelectedFiles={setSelectedFiles}
+      />
     </div>
   );
 };

@@ -5,7 +5,7 @@ import { Superhero, PowerHero } from './entities';
 import { StorageModule } from 'src/storage/storage.module';
 import { MediaService } from './media/media.service';
 import { SuperheroService } from '.';
-import { Media } from './entities/media.entity';
+import { Media } from './media/entity/media.entity';
 
 @Module({
   imports: [

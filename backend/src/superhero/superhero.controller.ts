@@ -73,6 +73,7 @@ export class SuperheroController {
     @UploadedFiles() files: Express.Multer.File[],
     @Body() createSuperheroDto: CreateSuperheroDto,
   ) {
+    console.log(createSuperheroDto);
     const mediaIds: string[] = files.map(() => uuidv4());
     try {
       await this.storageService.saveMany(files, mediaIds);
