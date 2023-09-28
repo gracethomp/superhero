@@ -31,7 +31,7 @@ const Form: FC<FormProps> = (props) => {
       catch_phrase: "",
     }
   );
-  const [selectedFiles, setSelectedFiles] = useState<File[]>(props.superhero?.images ?? []);
+  const [selectedFiles, setSelectedFiles] = useState<(File | string)[]>(props.superhero?.images ?? []);
   const [warning, setWarning] = useState<string>();
   const fields: string[] = [
     "Nickname",
@@ -71,7 +71,7 @@ const Form: FC<FormProps> = (props) => {
         dispatch(
           createNewSuperhero({
             superhero: superhero,
-            files: selectedFiles,
+            files: typeof selectedFiles === 'string' ? []: selectedFiles ,
           })
         );
         navigate(routes.home);

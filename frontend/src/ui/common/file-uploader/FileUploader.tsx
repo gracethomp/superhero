@@ -3,8 +3,8 @@ import { Input } from "@mui/material";
 import "./FileUploader.css";
 
 type FileUploaderProps = {
-  selectedFiles: File[];
-  setSelectedFiles: (files: File[]) => void;
+  selectedFiles: (File | string)[];
+  setSelectedFiles: (files: (File | string)[]) => void;
 };
 
 const FileUploader: React.FC<FileUploaderProps> = (props) => {
@@ -50,7 +50,7 @@ const FileUploader: React.FC<FileUploaderProps> = (props) => {
           {props.selectedFiles.map((file, index) => (
             <div key={index} className="uploaded-image-container">
               <img
-                src={URL.createObjectURL(file)}
+                src={typeof file === 'string' ? file : URL.createObjectURL(file)}
                 alt="Selected File Preview"
                 className="uploaded-image"
               />
