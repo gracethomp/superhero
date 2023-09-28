@@ -29,7 +29,7 @@ const FileUploader: React.FC<FileUploaderProps> = (props) => {
     updatedFiles.splice(index, 1);
     props.setSelectedFiles(updatedFiles);
   };
-
+  
   return (
     <div className="files-uploader-container">
       <div className="files-uploader">
