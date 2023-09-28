@@ -25,7 +25,6 @@ export class StorageService {
     media: Buffer,
     metadata: { [key: string]: string }[],
   ) {
-    this.storage.getBuckets().then((x) => console.log(x));
     const object = metadata.reduce((obj, item) => Object.assign(obj, item), {});
     const file = this.storage.bucket(this.bucket).file(path);
     const stream = file.createWriteStream();
@@ -37,11 +36,28 @@ export class StorageService {
     stream.end(media);
   }
 
+  async saveMany(files: Express.Multer.File[], mediaIds: string[]) {
+    const filePromises = files.map((file, index) => {
+      this.save('/' + mediaIds[index], file.buffer, [
+        { mediaId: mediaIds[index] },
+      ]);
+    });
+
+    await Promise.all(filePromises);
+  }
+
   async delete(path: string) {
     await this.storage
       .bucket(this.bucket)
       .file(path)
       .delete({ ignoreNotFound: true });
+  }
+
+  async deleteMany(mediaIds: string[]) {
+    const deletePromises = mediaIds.map((mediaId) =>
+      this.delete('/' + mediaId),
+    );
+    await Promise.all(deletePromises);
   }
 
   async get(path: string): Promise<StorageFile> {
