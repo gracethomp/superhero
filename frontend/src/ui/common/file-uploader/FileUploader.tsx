@@ -3,25 +3,37 @@ import { Input } from "@mui/material";
 import "./FileUploader.css";
 
 const FileUploader: React.FC = () => {
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
 
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files && event.target.files[0];
+    const files = event.target.files;
 
-    if (file && file.type.startsWith("image/")) {
-      setSelectedFile(file);
-    } else {
-      alert("Please select a valid image file.");
+    if (files) {
+      const newFiles = Array.from(files).filter((file) =>
+        file.type.startsWith("image/")
+      );
+
+      if (newFiles.length + selectedFiles.length <= 3) {
+        setSelectedFiles([...selectedFiles, ...newFiles]);
+      } else {
+        alert("You can upload a maximum of 3 image files.");
+      }
     }
   };
 
-  const handleUpload = () => {
-    if (selectedFile) {
-      console.log("Uploading file:", selectedFile);
-    } else {
-      alert("Please select a file to upload.");
-    }
+  const handleFileDelete = (index: number) => {
+    const updatedFiles = [...selectedFiles];
+    updatedFiles.splice(index, 1);
+    setSelectedFiles(updatedFiles);
   };
+
+  // const handleUpload = () => {
+  //   if (selectedFile) {
+  //     console.log("Uploading file:", selectedFile);
+  //   } else {
+  //     alert("Please select a file to upload.");
+  //   }
+  // };
 
   return (
     <div className="files-uploader-container">
@@ -32,17 +44,29 @@ const FileUploader: React.FC = () => {
           id="file-upload-input"
           onChange={handleFileChange}
         />
-        <label htmlFor="file-upload-input">
-          <span className="primary-button">Upload photo</span>
-        </label>
+        {selectedFiles.length < 3 && (
+          <label htmlFor="file-upload-input">
+            <span className="primary-button">Upload photo</span>
+          </label>
+        )}
       </div>
-      {selectedFile && (
+      {selectedFiles.length > 0 && (
         <div className="images">
-          <img
-            src={URL.createObjectURL(selectedFile)}
-            alt="Selected File Preview"
-            className="uploaded-image"
-          />
+          {selectedFiles.map((file, index) => (
+            <div key={index} className="uploaded-image-container">
+              <img
+                src={URL.createObjectURL(file)}
+                alt="Selected File Preview"
+                className="uploaded-image"
+              />
+              <button
+                onClick={() => handleFileDelete(index)}
+                className="delete-button"
+              >
+                Delete
+              </button>
+            </div>
+          ))}
         </div>
       )}
     </div>

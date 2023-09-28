@@ -29,3 +29,8 @@ span.primary-button:hover {
     object-fit: cover;
     border-radius: 0.5rem;
 }
+
+.images {
+    display: flex;
+    gap: 1rem
+}
