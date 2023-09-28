@@ -1,15 +1,13 @@
-import React, { useState, ChangeEvent } from "react";
+import React, { ChangeEvent } from "react";
 import { Input } from "@mui/material";
 import "./FileUploader.css";
 
 type FileUploaderProps = {
-  selectedFiles: File[],
-  setSelectedFiles: (files: File[]) => void,
-}
+  selectedFiles: File[];
+  setSelectedFiles: (files: File[]) => void;
+};
 
 const FileUploader: React.FC<FileUploaderProps> = (props) => {
-  // const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
-
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
 
@@ -31,14 +29,6 @@ const FileUploader: React.FC<FileUploaderProps> = (props) => {
     updatedFiles.splice(index, 1);
     props.setSelectedFiles(updatedFiles);
   };
-
-  // const handleUpload = () => {
-  //   if (selectedFile) {
-  //     console.log("Uploading file:", selectedFile);
-  //   } else {
-  //     alert("Please select a file to upload.");
-  //   }
-  // };
 
   return (
     <div className="files-uploader-container">

@@ -31,7 +31,7 @@ const Form: FC<FormProps> = (props) => {
       catch_phrase: "",
     }
   );
-  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
+  const [selectedFiles, setSelectedFiles] = useState<File[]>(props.superhero?.images ?? []);
   const [warning, setWarning] = useState<string>();
   const fields: string[] = [
     "Nickname",
@@ -58,11 +58,12 @@ const Form: FC<FormProps> = (props) => {
   };
 
   const handleSubmit = () => {
-    const isAnyStringFieldEmpty = Object.entries(superhero).some(
-      ([key, value]) => {
+    const isAnyStringFieldEmpty =
+      Object.entries(superhero).some(([key, value]) => {
         return !value;
-      }
-    );
+      }) ||
+      selectedFiles.length === 0 ||
+      superhero.superpowers.length < 2;
     if (isAnyStringFieldEmpty) {
       setWarning("All fields should be filled!");
     } else {
@@ -82,6 +83,7 @@ const Form: FC<FormProps> = (props) => {
         );
         navigate(routes.superhero + superhero.id);
       }
+
     }
   };
 
