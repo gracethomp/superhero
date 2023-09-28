@@ -10,10 +10,10 @@ import { StorageService } from './storage/storage.service';
 @Module({
   imports: [
     SequelizeModule.forRoot(sequelizeDevelopmentConfig),
+    MediaModule,
     SuperheroModule,
     SuperpowersModule,
     StorageModule,
-    MediaModule,
   ],
   providers: [StorageService],
 })

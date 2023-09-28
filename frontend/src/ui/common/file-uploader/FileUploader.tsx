@@ -59,12 +59,7 @@ const FileUploader: React.FC = () => {
                 alt="Selected File Preview"
                 className="uploaded-image"
               />
-              <button
-                onClick={() => handleFileDelete(index)}
-                className="delete-button"
-              >
-                Delete
-              </button>
+              <button onClick={() => handleFileDelete(index)}>Delete</button>
             </div>
           ))}
         </div>

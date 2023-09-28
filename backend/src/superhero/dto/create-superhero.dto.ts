@@ -39,4 +39,9 @@ export class CreateSuperheroDto {
   @IsString()
   @MaxLength(255)
   public catch_phrase: string;
+
+  @IsNotEmpty()
+  @IsArray()
+  @IsString()
+  public mediaIds: string[];
 }

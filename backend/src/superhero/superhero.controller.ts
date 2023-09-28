@@ -16,6 +16,7 @@ import { SuperheroService } from './superhero.service';
 import { CreateSuperheroDto, UpdateSuperheroDto } from './dto';
 import { StorageService } from 'src/storage/storage.service';
 import { createFilesInterceptor } from 'src/utils/file-inspector';
+import { v4 as uuidv4 } from 'uuid';
 
 @Controller('superhero')
 export class SuperheroController {
@@ -43,12 +44,12 @@ export class SuperheroController {
   @UseInterceptors(createFilesInterceptor('files', 3))
   async create(
     @UploadedFiles() files: Express.Multer.File[],
-    @Body('mediaIds') mediaIds: string[],
     @Body() createSuperheroDto: CreateSuperheroDto,
   ) {
+    const mediaIds: string[] = files.map(() => uuidv4());
     try {
       await this.storageService.saveMany(files, mediaIds);
-      return this.superheroService.create(createSuperheroDto);
+      return this.superheroService.create({ ...createSuperheroDto, mediaIds });
     } catch (err) {
       this.storageService.deleteMany(mediaIds);
       throw new BadRequestException(err.name);
