@@ -67,28 +67,27 @@ export const fetchTotalCount = createAsyncThunk(
 
 export const createNewSuperhero = createAsyncThunk(
   "superheroes/createNewSuperhero",
-  async (payload: { superhero: Superhero, files: File[] }, thunkAPI) => {
+  async (payload: { superhero: Superhero; files: File[] }, thunkAPI) => {
     try {
       const formData = new FormData();
       formData.append("nickname", payload.superhero.nickname);
       formData.append("real_name", payload.superhero.real_name);
-      formData.append("origin_description", payload.superhero.origin_description);
+      formData.append(
+        "origin_description",
+        payload.superhero.origin_description
+      );
       formData.append("catch_phrase", payload.superhero.catch_phrase);
       payload.files.forEach((file, index) => {
         formData.append(`files`, file);
       });
       payload.superhero.superpowers.forEach((power, index) => {
-        formData.append(`superpowers`, power.id ? power.id.toString() : '');
+        formData.append(`superpowers`, power.id ? power.id.toString() : "");
       });
-      const response = await axios.post(
-        `/superhero/`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+      const response = await axios.post(`/superhero/`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
       return response.data;
     } catch (error) {
       throw error;
@@ -105,6 +104,18 @@ export const updateSuperhero = createAsyncThunk(
         ...superhero,
         superpowers: superpowersIds,
       });
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+);
+
+export const deleteSuperhero = createAsyncThunk(
+  "superheroes/deleteSuperhero",
+  async (id: number) => {
+    try {
+      const response = await axios.delete(`/superhero/${id}`);
       return response.data;
     } catch (error) {
       throw error;

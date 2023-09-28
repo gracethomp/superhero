@@ -23,6 +23,6 @@ export class Media extends Model<
   @Column
   public superhero_id: number;
 
-  @BelongsTo(() => Superhero)
+  @BelongsTo(() => Superhero, { onDelete: 'CASCADE', onUpdate: 'CASCADE' })
   superhero: Superhero;
 }

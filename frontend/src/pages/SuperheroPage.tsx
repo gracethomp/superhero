@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { FC } from "react";
 import { icons } from "../icons/icons";
 import Button from "../ui/common/button/Button";
@@ -6,13 +6,18 @@ import Header from "../ui/common/header/Header";
 import Tag from "../ui/common/tag/Tag";
 import "./Pages.css";
 import { useAppDispatch, useAppSelector } from "../hooks/redux";
-import { fetchSuperheroById } from "../store/services/superhero.services";
-import { useParams, NavLink } from "react-router-dom";
+import {
+  deleteSuperhero,
+  fetchSuperheroById,
+} from "../store/services/superhero.services";
+import { useParams, NavLink, useNavigate } from "react-router-dom";
 import { routes } from "../utils/routes";
-import { fetchImage } from "../store/services/media.services";
+import { Modal } from "../ui/common/modal/Modal";
 
 const SuperheroPage: FC = () => {
+  const [isOpen, setIsModalOpen] = useState<boolean>(false);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const superhero = useAppSelector(
     (state) => state.superheroes.currentSuperhero
   );
@@ -56,11 +61,28 @@ const SuperheroPage: FC = () => {
                   Edit
                 </Button>
               </NavLink>
-              <Button variant="caution">Delete</Button>
+              <Button variant="caution" onClick={() => setIsModalOpen(true)}>
+                Delete
+              </Button>
             </div>
           </div>
         </div>
       </main>
+      <Modal isOpen={isOpen} onClose={() => setIsModalOpen(false)}>
+        <p>Are you sure you want to delete this superhero?</p>
+        <Button
+          variant="primary"
+          onClick={() => {
+            if (superhero?.id) {
+              dispatch(deleteSuperhero(superhero?.id));
+              navigate(routes.home);
+            }
+          }}
+        >
+          Yes
+        </Button>
+        <Button variant="secondary" onClick={() => setIsModalOpen(false)}>No</Button>
+      </Modal>
     </>
   );
 };
