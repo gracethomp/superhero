@@ -11,6 +11,7 @@ import {
 } from "../../store/services/superhero.services";
 import { routes } from "../../utils/routes";
 import Dropdown from "../common/dropdown/Dropdown";
+import FileUploader from "../common/file-uploader/FileUploader";
 
 type FormProps = {
   title: string;
@@ -67,14 +68,14 @@ const Form: FC<FormProps> = (props) => {
       if (isNew) {
         dispatch(
           createNewSuperhero({
-            ...superhero
+            ...superhero,
           })
         );
         navigate(routes.home);
       } else {
         dispatch(
           updateSuperhero({
-            ...superhero
+            ...superhero,
           })
         );
         navigate(routes.superhero + superhero.id);
@@ -83,35 +84,38 @@ const Form: FC<FormProps> = (props) => {
   };
 
   return (
-    <div className="superhero-form">
-      <h1>{props.title}</h1>
-      <div className="fields">
-        {fields.map((field, index) => (
-          <Input
-            key={index}
-            name={field.toLowerCase().replace(" ", "_") as keyof Superhero}
-            placeholder={field}
-            value={superhero[
-              field.toLowerCase().replace(" ", "_") as keyof Superhero
-            ]?.toString()}
-            onChange={handleInputChange}
-            isWarned={
-              !!warning &&
-              superhero[
+    <div className="superhero-form-container">
+      <div className="superhero-form">
+        <h1>{props.title}</h1>
+        <div className="fields">
+          {fields.map((field, index) => (
+            <Input
+              key={index}
+              name={field.toLowerCase().replace(" ", "_") as keyof Superhero}
+              placeholder={field}
+              value={superhero[
                 field.toLowerCase().replace(" ", "_") as keyof Superhero
-              ]?.toString() === ""
-            }
+              ]?.toString()}
+              onChange={handleInputChange}
+              isWarned={
+                !!warning &&
+                superhero[
+                  field.toLowerCase().replace(" ", "_") as keyof Superhero
+                ]?.toString() === ""
+              }
+            />
+          ))}
+          <Dropdown
+            selectedPowers={superhero.superpowers}
+            setSelectedOptions={handleSuperpowersChange}
           />
-        ))}
-        <Dropdown
-          selectedPowers={superhero.superpowers}
-          setSelectedOptions={handleSuperpowersChange}
-        />
+        </div>
+        <Button variant={"primary"} onClick={handleSubmit}>
+          {props.title}
+        </Button>
+        {warning && <p className="form-warning-text">{warning}</p>}
       </div>
-      <Button variant={"primary"} onClick={handleSubmit}>
-        {props.title}
-      </Button>
-      {warning && <p className="form-warning-text">{warning}</p>}
+      <FileUploader />
     </div>
   );
 };

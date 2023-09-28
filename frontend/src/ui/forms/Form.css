@@ -14,3 +14,12 @@ h1 {
     padding-top: 1rem;
     color: #ED5252;
 }
+
+.superhero-form-container {
+    display: flex;
+    gap: 1rem;
+}
+
+.superhero-form {
+    flex-grow: 1;
+}
