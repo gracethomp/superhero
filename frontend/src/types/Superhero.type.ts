@@ -7,4 +7,5 @@ export type Superhero = {
   origin_description: string;
   superpowers: Superpower[];
   catch_phrase: string;
+  images?: Blob[] | MediaSource[];
 };

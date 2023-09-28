@@ -1,6 +1,6 @@
 import { SequelizeModuleOptions } from '@nestjs/sequelize';
-import { Media } from 'src/media/entity/media.entity';
 import { Superhero, PowerHero } from 'src/superhero';
+import { Media } from 'src/superhero/entities/media.entity';
 import { Superpower } from 'src/superpowers';
 
 export const sequelizeDevelopmentConfig: SequelizeModuleOptions = {
