@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import SuperheroCard from "../ui/cards/SuperheroCard";
 import Header from "../ui/common/header/Header";
 import Pagination from "../ui/common/pagination/Pagination";
-import { fetchAllSuperheroes } from "../store/services/superhero.services";
+import { fetchAllSuperheroes, fetchTotalCount } from "../store/services/superhero.services";
 import { useAppDispatch, useAppSelector } from "../hooks/redux";
 import { Superhero } from "../types";
 import { clearCurrentHero } from "../store/slices/superheroes.slice";
@@ -19,6 +19,7 @@ const HomePage = () => {
   }, [dispatch]);
   
   useEffect(() => {
+    dispatch(fetchTotalCount())
     dispatch(fetchAllSuperheroes(page));
   }, [dispatch, page]);
 
