@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import superheroReducer from "./slices/superheroes.slice"; //barrel file needed
+import superheroReducer from "./slices/superheroes.slice";
 import superpowerReducer from "./slices/superpowers.slice";
 import logger from "redux-logger";
 import { fetchTotalCount } from "./services/superhero.services";

@@ -12,7 +12,6 @@
     border: 6px solid white;
     background-position: center;
     background-size: cover;
-    cursor: pointer;
 }
 
 .superhero-card:hover {

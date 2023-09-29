@@ -11,7 +11,7 @@ type SuperheroCardProps = {
 const SuperheroCard: FC<SuperheroCardProps> = (props) => {
   const navigate = useNavigate();
   const cardStyle = {
-    backgroundImage: `url(${props.superhero.images?.at(0)})`, // to change
+    backgroundImage: `url(${props.superhero.images?.at(0)})`,
   };
 
   const handleClick = () => {

@@ -4,3 +4,4 @@
 3. To build (rebuild) npm run start:build
 4. To start without building npm run start
 5. To stop npm run stop
+6. To run seeds: npm run seed:dev

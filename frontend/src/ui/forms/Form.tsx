@@ -12,6 +12,7 @@ import {
 import { routes } from "../../utils/routes";
 import Dropdown from "../common/dropdown/Dropdown";
 import FileUploader from "../common/file-uploader/FileUploader";
+import { clearPage } from "../../store/slices/superheroes.slice";
 
 type FormProps = {
   title: string;
@@ -74,6 +75,7 @@ const Form: FC<FormProps> = (props) => {
             files: typeof selectedFiles === 'string' ? []: selectedFiles ,
           })
         );
+        dispatch(clearPage());
         navigate(routes.home);
       } else {
         dispatch(
@@ -81,6 +83,7 @@ const Form: FC<FormProps> = (props) => {
             ...superhero,
           })
         );
+        dispatch(clearPage());
         navigate(routes.superhero + superhero.id);
       }
 

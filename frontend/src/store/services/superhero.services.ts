@@ -7,25 +7,6 @@ export const fetchAllSuperheroes = createAsyncThunk(
   async (page: number) => {
     try {
       const response = await axios.get(`/superhero?page=${page}`);
-      // const superheroes = await Promise.all(
-      //   response.data.map(async (item: Superhero) => {
-      //     const mediaIds = await axios.get(
-      //       `/superhero/media/superhero/${item.id}`
-      //     );
-      //     const images = await Promise.all(
-      //       mediaIds.data.map(async (mediaId: any) => {
-      //         const imgsResponse = await axios.get(
-      //           `/superhero/media/${mediaId.mediaId}`,
-      //           { responseType: "blob" }
-      //         );
-      //         const imageUrl = URL.createObjectURL(imgsResponse.data);
-      //         return imageUrl;
-      //       })
-      //     );
-      //     return { ...item, images };
-      //   })
-      // );
-      // return superheroes;
       return response.data.map((value: { images: any[]; }) => {
         return { ...value, images: value.images.map((item) => item.mediaId) };
       });

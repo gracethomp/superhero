@@ -10,7 +10,7 @@ import {
 const Pagination: FC = () => {
   const dispatch = useAppDispatch();
   const page = useAppSelector(state => state.superheroes.page);
-  const totalCount = useAppSelector(state => state.superheroes.totalCount); //think about it
+  const totalCount = useAppSelector(state => state.superheroes.totalCount);
 
   return (
     <div className="pagination">

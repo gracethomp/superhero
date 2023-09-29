@@ -6,9 +6,11 @@ import { useEffect } from "react";
 
 const CreateSuperheroPage = () => {
   const dispatch = useAppDispatch();
+
   useEffect(() => {
     dispatch(clearCurrentHero());
   }, [dispatch]);
+
   return (
     <>
       <Header />
