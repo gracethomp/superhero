@@ -79,11 +79,26 @@ export class SuperheroController {
     }
   }
   @Patch(':id')
-  update(
+  @UseInterceptors(createFilesInterceptor('files', 3))
+  async update(
     @Param('id', ParseIntPipe) id: number,
+    @UploadedFiles() files: Express.Multer.File[],
     @Body() updateSuperheroDto: UpdateSuperheroDto,
   ) {
-    return this.superheroService.update(id, updateSuperheroDto);
+    try {
+      const oldFileUrls = await this.mediaService.findAllUrls(id);
+      await this.uploadService.deleteFilesByUrl(oldFileUrls);
+      const mediaIds = await this.uploadService.uploadFiles(
+        files,
+        updateSuperheroDto,
+      );
+      return this.superheroService.update(id, {
+        ...updateSuperheroDto,
+        mediaIds,
+      });
+    } catch (err) {
+      throw new BadRequestException(err);
+    }
   }
 
   @Delete(':id')

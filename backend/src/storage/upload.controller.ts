@@ -1,5 +1,7 @@
 import {
+  Body,
   Controller,
+  Delete,
   Post,
   UploadedFile,
   UseInterceptors,
@@ -19,5 +21,10 @@ export class UploadController {
       file.originalname,
     );
     return { fileUrl };
+  }
+
+  @Delete()
+  async deletePhoto(@Body('url') url: string) {
+    await this.uploadService.deleteFileByUrl(url);
   }
 }

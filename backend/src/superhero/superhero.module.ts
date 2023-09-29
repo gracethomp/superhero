@@ -6,10 +6,11 @@ import { MediaService } from './media/media.service';
 import { SuperheroService } from '.';
 import { Media } from './media/entity/media.entity';
 import { UploadService } from 'src/storage/upload.service';
+import { UploadController } from 'src/storage/upload.controller';
 
 @Module({
   imports: [SequelizeModule.forFeature([Superhero, PowerHero, Media])],
-  controllers: [SuperheroController],
+  controllers: [SuperheroController, UploadController],
   providers: [SuperheroService, MediaService, UploadService],
 })
 export class SuperheroModule {}

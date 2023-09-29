@@ -89,7 +89,7 @@ export class SuperheroService {
     if (superhero === null) {
       throw new NotFoundException('Superhero not found');
     }
-    const { superpowers } = updateSuperheroDto;
+    const { superpowers, mediaIds } = updateSuperheroDto;
     try {
       return await this.sequelize.transaction(async (t) => {
         const transactionHost = { transaction: t };
@@ -125,6 +125,17 @@ export class SuperheroService {
             }),
           );
         }
+        await Promise.all(
+          mediaIds.map(async (mediaId) => {
+            await this.mediaRepository.create(
+              {
+                superhero_id: id,
+                mediaId: mediaId,
+              },
+              transactionHost,
+            );
+          }),
+        );
         if (numberOfAffectedRows > 0) {
           this.logger.log(`Superhero ${id} updated`);
         }
