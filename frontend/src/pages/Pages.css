@@ -61,3 +61,8 @@ main {
     align-items: flex-end;
     gap: 1rem;
 }
+
+.image-arrows {
+    display: flex;
+    justify-content: center;
+}

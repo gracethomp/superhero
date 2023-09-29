@@ -9,14 +9,16 @@ import { Superhero } from "../../types";
 
 interface SuperheroState {
   totalCount: number;
-  isLoading: boolean;
+  isLoading: boolean; //for future spinners adding
   page: number;
   currentSuperhero?: Superhero;
-  superheroes: Superhero[]; //error state should be here too
+  warning: string;
+  superheroes: Superhero[];
 }
 
 const initialState = {
   totalCount: 0,
+  warning: "",
   superheroes: [],
   isLoading: false,
   page: 1,
@@ -48,9 +50,14 @@ const superheroesSlice = createSlice({
       .addCase(fetchAllSuperheroes.fulfilled, (state, action) => {
         state.isLoading = false;
         state.superheroes = action.payload;
+        state.warning = '';
       })
       .addCase(fetchAllSuperheroes.pending, (state) => {
         state.isLoading = true;
+      })
+      .addCase(fetchAllSuperheroes.rejected, (state) => {
+        state.isLoading = false;
+        state.warning = 'Fetch superheroes error'
       })
       .addCase(fetchSuperheroById.pending, (state) => {
         state.isLoading = true;
@@ -58,11 +65,29 @@ const superheroesSlice = createSlice({
       .addCase(fetchSuperheroById.fulfilled, (state, action) => {
         state.isLoading = false;
         state.currentSuperhero = action.payload;
+        state.warning = ''
+      }).addCase(fetchSuperheroById.rejected, (state) => {
+        state.isLoading = false;
+        state.warning = 'Fetch superhero error'
       })
       .addCase(fetchTotalCount.fulfilled, (state, action) => {
         state.totalCount = action.payload;
+        state.warning = '';
       })
-      .addCase(createNewSuperhero.fulfilled, (state, action) => {})//need updates
+      .addCase(fetchTotalCount.rejected, (state) => {
+        state.warning = 'Fetch total count error'
+      })
+      .addCase(createNewSuperhero.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(createNewSuperhero.fulfilled, (state) => {
+        state.isLoading = false;
+        state.warning = ''
+      })
+      .addCase(createNewSuperhero.rejected, (state) => {
+        state.isLoading = false;
+        state.warning = 'Create superhero error'
+      });
   },
 });
 

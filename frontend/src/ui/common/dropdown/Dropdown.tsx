@@ -32,7 +32,7 @@ const Dropdown: FC<SelectProps> = (props) => {
     <div className="dropdown-container">
       <div className="dropdown" onClick={() => setOpenSelect(!openSelect)}>
         {props.selectedPowers.map((option) => (
-          <Tag>{option.superpower}</Tag>
+          <Tag key={option.id}>{option.superpower}</Tag>
         ))}
         <input
           placeholder={props.selectedPowers.length === 0 ? "Superpowers" : ""}
