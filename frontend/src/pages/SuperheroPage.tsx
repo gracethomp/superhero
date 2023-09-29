@@ -13,6 +13,7 @@ import {
 import { useParams, NavLink, useNavigate } from "react-router-dom";
 import { routes } from "../utils/routes";
 import { Modal } from "../ui/common/modal/Modal";
+import { clearPage } from "../store/slices/superheroes.slice";
 
 const SuperheroPage: FC = () => {
   const [isOpen, setIsModalOpen] = useState<boolean>(false);
@@ -28,6 +29,14 @@ const SuperheroPage: FC = () => {
       dispatch(fetchSuperheroById(parseInt(id)));
     }
   }, [dispatch, id]);
+
+  const handleDelete = () => {
+    if (superhero?.id) {
+      dispatch(deleteSuperhero(superhero?.id));
+      dispatch(clearPage())
+      navigate(routes.home);
+    }
+  }
 
   return (
     <>
@@ -72,12 +81,7 @@ const SuperheroPage: FC = () => {
         <p>Are you sure you want to delete this superhero?</p>
         <Button
           variant="primary"
-          onClick={() => {
-            if (superhero?.id) {
-              dispatch(deleteSuperhero(superhero?.id));
-              navigate(routes.home);
-            }
-          }}
+          onClick={handleDelete}
         >
           Yes
         </Button>

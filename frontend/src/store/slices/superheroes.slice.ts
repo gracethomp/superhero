@@ -6,14 +6,12 @@ import {
   fetchTotalCount,
 } from "../services/superhero.services";
 import { Superhero } from "../../types";
-import { fetchImage } from "../services/media.services";
 
 interface SuperheroState {
   totalCount: number;
   isLoading: boolean;
   page: number;
   currentSuperhero?: Superhero;
-  image?: Blob | MediaSource; //temp
   superheroes: Superhero[]; //error state should be here too
 }
 
@@ -30,6 +28,9 @@ const superheroesSlice = createSlice({
   reducers: {
     clearCurrentHero(state) {
       state.currentSuperhero = undefined;
+    },
+    clearPage(state) {
+      state.page = 1;
     },
     incrementPage(state) {
       if (Math.ceil(state.totalCount / 5) >= state.page + 1) {
@@ -61,14 +62,11 @@ const superheroesSlice = createSlice({
       .addCase(fetchTotalCount.fulfilled, (state, action) => {
         state.totalCount = action.payload;
       })
-      .addCase(createNewSuperhero.fulfilled, (state, action) => {})
-      .addCase(fetchImage.fulfilled, (state, action) => {
-        state.image = action.payload;
-      });
+      .addCase(createNewSuperhero.fulfilled, (state, action) => {})//need updates
   },
 });
 
-export const { incrementPage, decrementPage, clearCurrentHero } =
+export const { incrementPage, decrementPage, clearCurrentHero, clearPage } =
   superheroesSlice.actions;
 
 export default superheroesSlice.reducer;
