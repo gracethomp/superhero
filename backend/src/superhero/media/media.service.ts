@@ -28,4 +28,11 @@ export class MediaService {
       mediaId: mediaId,
     });
   }
+
+  async findAllUrls(id: number) {
+    const oldFileUrls = (await this.findAll(id)).map(
+      (value) => value.dataValues.mediaId,
+    );
+    return oldFileUrls;
+  }
 }

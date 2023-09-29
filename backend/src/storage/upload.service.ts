@@ -1,6 +1,6 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { storage } from './storage.service';
-import { CreateSuperheroDto } from 'src/superhero/dto';
+import { CreateSuperheroDto, UpdateSuperheroDto } from 'src/superhero/dto';
 
 @Injectable()
 export class UploadService {
@@ -14,9 +14,10 @@ export class UploadService {
 
     return `https://storage.googleapis.com/${process.env.STORAGE_MEDIA_BUCKET}/${filename}`;
   }
+
   async uploadFiles(
     files: Express.Multer.File[],
-    superhero: CreateSuperheroDto,
+    superhero: CreateSuperheroDto | UpdateSuperheroDto,
   ): Promise<string[]> {
     const result = await Promise.all(
       files.map((value, index) => {
@@ -24,5 +25,30 @@ export class UploadService {
       }),
     );
     return result;
+  }
+
+  async deleteFileByUrl(url: string): Promise<void> {
+    const bucketName = process.env.STORAGE_MEDIA_BUCKET;
+    const fileName = this.extractFileNameFromUrl(url);
+    const file = storage.bucket(bucketName).file('/' + fileName);
+
+    try {
+      await file.delete();
+    } catch (error) {
+      throw new NotFoundException('File not found' + error);
+    }
+  }
+
+  async deleteFilesByUrl(urls: string[]): Promise<void> {
+    await Promise.all(
+      urls.map(async (value) => {
+        return await this.deleteFileByUrl(value);
+      }),
+    );
+  }
+
+  private extractFileNameFromUrl(url: string): string {
+    const parts = url.split('/');
+    return parts[parts.length - 1];
   }
 }
