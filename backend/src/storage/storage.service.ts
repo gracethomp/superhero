@@ -1,94 +1,12 @@
-import { DownloadResponse, Storage } from '@google-cloud/storage';
-import { Injectable } from '@nestjs/common';
-import { StorageFile } from 'src/config';
+import { Storage } from '@google-cloud/storage';
 import StorageConfig from 'src/config/storage-config';
 
-@Injectable()
-export class StorageService {
-  private storage: Storage;
-  private bucket: string;
+const storage = new Storage({
+  projectId: StorageConfig.projectId,
+  credentials: {
+    client_email: StorageConfig.client_email,
+    private_key: StorageConfig.private_key,
+  },
+});
 
-  constructor() {
-    this.storage = new Storage({
-      projectId: StorageConfig.projectId,
-      credentials: {
-        client_email: StorageConfig.client_email,
-        private_key: StorageConfig.private_key,
-      },
-    });
-
-    this.bucket = StorageConfig.mediaBucket;
-  }
-
-  async save(
-    path: string,
-    media: Buffer,
-    metadata: { [key: string]: string }[],
-  ) {
-    const object = metadata.reduce((obj, item) => Object.assign(obj, item), {});
-    const file = this.storage.bucket(this.bucket).file(path);
-    const stream = file.createWriteStream();
-    stream.on('finish', async () => {
-      return await file.setMetadata({
-        metadata: object,
-      });
-    });
-    stream.end(media);
-  }
-
-  async saveMany(files: Express.Multer.File[], mediaIds: string[]) {
-    const filePromises = files.map((file, index) => {
-      this.save('/' + mediaIds[index], file.buffer, [
-        { mediaId: mediaIds[index] },
-      ]);
-    });
-
-    await Promise.all(filePromises);
-  }
-
-  async delete(path: string) {
-    await this.storage
-      .bucket(this.bucket)
-      .file(path)
-      .delete({ ignoreNotFound: true });
-  }
-
-  async deleteMany(mediaIds: string[]) {
-    const deletePromises = mediaIds.map((mediaId) =>
-      this.delete('/' + mediaId),
-    );
-    await Promise.all(deletePromises);
-  }
-
-  async get(path: string): Promise<StorageFile> {
-    const fileResponse: DownloadResponse = await this.storage
-      .bucket(this.bucket)
-      .file(path)
-      .download();
-    const [buffer] = fileResponse;
-    const storageFile = new StorageFile();
-    storageFile.buffer = buffer;
-    storageFile.metadata = new Map<string, string>();
-    return storageFile;
-  }
-
-  async getWithMetaData(path: string): Promise<StorageFile> {
-    const [bucketObj] = await this.storage
-      .bucket(this.bucket)
-      .file(path)
-      .getMetadata();
-    const { metadata } = bucketObj;
-    const fileResponse: DownloadResponse = await this.storage
-      .bucket(this.bucket)
-      .file(path)
-      .download();
-    const [buffer] = fileResponse;
-    const storageFile = new StorageFile();
-    storageFile.buffer = buffer;
-    storageFile.metadata = new Map<string, string>(
-      Object.entries(metadata || {}),
-    );
-    storageFile.contentType = storageFile.metadata.get('contentType');
-    return storageFile;
-  }
-}
+export { storage };
