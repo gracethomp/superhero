@@ -3,8 +3,8 @@ import { InjectModel } from '@nestjs/sequelize';
 import { PowerHero, Superhero } from './entities';
 import { CreateSuperheroDto, UpdateSuperheroDto } from './dto';
 import { Sequelize } from 'sequelize-typescript';
-import { Superpower } from 'src/superpowers';
-import { mapSuperhero } from 'src/utils';
+import { Superpower } from '../superpowers';
+import { mapSuperhero } from '../utils';
 import { Media } from './media/entity/media.entity';
 
 @Injectable()

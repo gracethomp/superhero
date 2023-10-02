@@ -1,6 +1,6 @@
 import { Model, Table, ForeignKey, BelongsTo } from 'sequelize-typescript';
 import { Superhero } from './superhero.entity';
-import { Superpower } from 'src/superpowers';
+import { Superpower } from '../../superpowers';
 
 @Table({ timestamps: false })
 export class PowerHero extends Model<PowerHero> {

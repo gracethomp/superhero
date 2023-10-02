@@ -6,7 +6,7 @@ import {
   ArrayMinSize,
   IsNumberString,
 } from 'class-validator';
-import { UniqueArrayValues } from 'src/utils';
+import { UniqueArrayValues } from '../../utils';
 
 export class CreateSuperheroDto {
   @IsNotEmpty()

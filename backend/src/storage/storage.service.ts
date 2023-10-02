@@ -1,5 +1,5 @@
 import { Storage } from '@google-cloud/storage';
-import StorageConfig from 'src/config/storage-config';
+import StorageConfig from '../config/storage-config';
 
 const storage = new Storage({
   projectId: StorageConfig.projectId,

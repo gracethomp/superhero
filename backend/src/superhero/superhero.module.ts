@@ -5,8 +5,8 @@ import { Superhero, PowerHero } from './entities';
 import { MediaService } from './media/media.service';
 import { SuperheroService } from '.';
 import { Media } from './media/entity/media.entity';
-import { UploadService } from 'src/storage/upload.service';
-import { UploadController } from 'src/storage/upload.controller';
+import { UploadService } from '../storage/upload.service';
+import { UploadController } from '../storage/upload.controller';
 
 @Module({
   imports: [SequelizeModule.forFeature([Superhero, PowerHero, Media])],
