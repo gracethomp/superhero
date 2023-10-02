@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { storage } from './storage.service';
-import { CreateSuperheroDto, UpdateSuperheroDto } from 'src/superhero/dto';
+import { CreateSuperheroDto, UpdateSuperheroDto } from '../superhero/dto';
 
 @Injectable()
 export class UploadService {

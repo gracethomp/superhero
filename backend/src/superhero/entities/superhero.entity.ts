@@ -7,8 +7,9 @@ import {
   BelongsToMany,
 } from 'sequelize-typescript';
 import { InferAttributes, InferCreationAttributes } from 'sequelize/types';
-import { Superpower } from 'src/superpowers';
+
 import { PowerHero } from './power-hero.entity';
+import { Superpower } from '../../superpowers';
 
 @Table({ timestamps: false })
 export class Superhero extends Model<

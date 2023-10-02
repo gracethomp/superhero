@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
-import { Media } from 'src/superhero/media/entity/media.entity';
+import { Media } from '../../superhero/media/entity/media.entity';
 
 @Injectable()
 export class MediaService {

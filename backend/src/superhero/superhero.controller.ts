@@ -14,9 +14,9 @@ import {
 } from '@nestjs/common';
 import { SuperheroService } from './superhero.service';
 import { CreateSuperheroDto, UpdateSuperheroDto } from './dto';
-import { createFilesInterceptor } from 'src/utils/file-inspector';
+import { createFilesInterceptor } from '../utils/file-inspector';
 import { MediaService } from './media/media.service';
-import { UploadService } from 'src/storage/upload.service';
+import { UploadService } from '../storage/upload.service';
 
 @Controller('superhero')
 export class SuperheroController {

@@ -1,7 +1,7 @@
 import { SequelizeModuleOptions } from '@nestjs/sequelize';
-import { Superhero, PowerHero } from 'src/superhero';
-import { Media } from 'src/superhero/media/entity/media.entity';
-import { Superpower } from 'src/superpowers';
+import { Superhero, PowerHero } from '../superhero';
+import { Media } from '../superhero/media/entity/media.entity';
+import { Superpower } from '../superpowers';
 
 export const sequelizeDevelopmentConfig: SequelizeModuleOptions = {
   username: process.env.POSTGRES_USER,
