@@ -1,19 +1,20 @@
 import { Module, NotFoundException } from '@nestjs/common';
-import { SuperheroController, SuperheroService } from '../src/superhero';
-import { MediaService } from '../src/superhero/media/media.service';
-import { UploadService } from '../src/storage/upload.service';
+import { SuperheroController, SuperheroService } from '../../src/superhero';
+import { MediaService } from '../../src/superhero/media/media.service';
+import { UploadService } from '../../src/storage/upload.service';
 import { existingId, heroes } from './superhero-data.mock';
 
-const mockMediaService = {
+export const mockMediaService = {
   findAll: jest.fn(),
+  findAllUrls: jest.fn(),
 };
 
-const mockUploadService = {
+export const mockUploadService = {
   uploadFiles: jest.fn(),
   deleteFilesByUrl: jest.fn(),
 };
 
-const mockSuperheroService = {
+export const mockSuperheroService = {
   findAll: jest.fn().mockResolvedValue(heroes),
   findOne: jest.fn((id: number) => {
     if (id === existingId) {
