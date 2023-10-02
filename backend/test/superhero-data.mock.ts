@@ -1,5 +1,5 @@
 export const existingId = 1;
-export const nonExistingId = -13213;
+export const nonExistingId = -65646546413213;
 
 export const heroes = [
   {
@@ -52,3 +52,13 @@ export const heroes = [
     ],
   },
 ];
+
+export const createHeroMock = {
+  id: 3,
+  nickname: 'Wonder Woman',
+  real_name: 'Diana Prince',
+  origin_description:
+    'Diana Prince is an Amazonian princess who leaves her home island to help fight evil in the world of men...',
+  catch_phrase: 'Athena guide me, I will fight for justice!',
+  superpowers: ['1', '2'],
+};

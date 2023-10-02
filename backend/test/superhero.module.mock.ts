@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, NotFoundException } from '@nestjs/common';
 import { SuperheroController, SuperheroService } from '../src/superhero';
 import { MediaService } from '../src/superhero/media/media.service';
 import { UploadService } from '../src/storage/upload.service';
@@ -15,7 +15,14 @@ const mockUploadService = {
 
 const mockSuperheroService = {
   findAll: jest.fn().mockResolvedValue(heroes),
-  findOne: jest.fn((id: number) => (id === existingId ? heroes[0] : null)),
+  findOne: jest.fn((id: number) => {
+    if (id === existingId) {
+      return heroes[0];
+    } else {
+      throw new NotFoundException();
+    }
+  }),
+  create: jest.fn((hero) => hero),
 };
 
 @Module({
